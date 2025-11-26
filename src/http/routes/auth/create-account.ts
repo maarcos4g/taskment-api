@@ -1,5 +1,6 @@
 import { database } from "@/database/connection.ts";
 import { schema } from "@/database/schemas/index.ts";
+import { BadRequestError } from "@/http/errors/bad-request-error.ts";
 import { hash } from "argon2";
 import { eq } from "drizzle-orm";
 import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
@@ -23,14 +24,14 @@ export const createAccount: FastifyPluginAsyncZod = async (server) => {
         const { name, email, password } = request.body
 
         const [userWithSameEmail] = await database
-          .select({})
+          .select()
           .from(schema.users)
           .where(
             eq(schema.users.email, email)
           )
 
           if (userWithSameEmail) {
-            throw new Error('User with same e-mail already exists.')
+            throw new BadRequestError('User with same email already exists.')
           }
 
           const passwordHash = await hash(password)
