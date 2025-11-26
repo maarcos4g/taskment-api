@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import fastifyCors from "@fastify/cors";
 import fastify from "fastify";
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
@@ -8,7 +9,7 @@ server.setValidatorCompiler(validatorCompiler)
 server.setSerializerCompiler(serializerCompiler)
 
 server.register(fastifyCors, {
-  origin: '*', // url fo frontend
+  origin: env.FRONTEND_URL, // url fo frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
   credentials: true,
 })
