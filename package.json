@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "tsx watch --env-file .env src/http/server.ts",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "tsx watch --env-file .env src/database/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,7 @@
   "devDependencies": {
     "@types/node": "^24.10.1",
     "drizzle-kit": "^0.31.7",
+    "drizzle-seed": "^0.3.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
